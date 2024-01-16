@@ -33,7 +33,7 @@ class TestWebFormNegative {
         driver = null;
     }
 
-    User unknown = new User(
+    User unknownUser = new User(
             "sdfsdfsdfs@rambler1.ru",
             "sdfsdfd2332sdf23"
     );
@@ -43,13 +43,13 @@ class TestWebFormNegative {
     void negativeScriptAuthentication() {
         //Заходим на страницу и проверяем, что элемент с текстом "Вход в систему" отображается
         driver.get("https://ds.retail-soft.pro/#/login");
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebElement LogIn = driver.findElement(By.className("fw-normal"));
         assertEquals(true, LogIn.isDisplayed());
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+
         //Находим поля логина и пароля, вбиваем в них невалидные данные
-        driver.findElement(By.id("floatingInput")).sendKeys(unknown.getEmail());
-        driver.findElement(By.id("floatingPassword")).sendKeys(unknown.getPass());
+        driver.findElement(By.id("floatingInput")).sendKeys(unknownUser.getEmail());
+        driver.findElement(By.id("floatingPassword")).sendKeys(unknownUser.getPass());
         //Нажимаем кнопку "Войти"
         driver.findElement(By.className("btn-primary")).click();
         //Проверяем, что получили элемент с текстом ошибки
